@@ -24,11 +24,10 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm/v7 \
-            -t homeassistan:latest \
+            -t homeassistant:latest \
             -f Dockerfile \
             .
-          docker buildx imagetools create my-image-name:latest --tag homeassistan:$(date +%s) --target homeassistan:latest
+          docker push homeassistant:latest
         env:
           DOCKER_CLI_AGGREGATE: 1
         shell: bash
-      
