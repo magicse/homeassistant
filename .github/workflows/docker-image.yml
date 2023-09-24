@@ -27,7 +27,7 @@ jobs:
             -t my-image-name:latest \
             -f Dockerfile \
             .
-          docker buildx imagetools create my-image-name:latest --tag my-image-name:$(date +%s) --target my-image-name:latest
+          docker buildx imagetools create my-image-name:latest --tag homeassistan:$(date +%s) --target homeassistan:latest
         env:
           DOCKER_CLI_AGGREGATE: 1
         shell: bash
