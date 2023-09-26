@@ -1,5 +1,6 @@
 # Container image that runs your code
 FROM alpine:3.17
+ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
 RUN apk add bash
 RUN bash
 RUN apk add g++ gcc make
