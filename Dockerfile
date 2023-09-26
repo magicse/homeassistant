@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM alpine:3.18
+FROM alpine:3.17
 RUN apk add bash
 
 # Set the working directory
