@@ -40,7 +40,7 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          docker push docker.io/magicse/homeassistant:latest
+          docker push magicse/homeassistant:latest
         env:
           DOCKER_CLI_AGGREGATE: 1
         shell: bash
