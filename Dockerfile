@@ -33,7 +33,7 @@ RUN apk del \
     rm -rf /var/cache/apk/*
 
 # Set the working directory
-WORKDIR /config
+VOLUME /config
 # Expose the Home Assistant port (8123)
 EXPOSE 8123
 # Start Home Assistant
