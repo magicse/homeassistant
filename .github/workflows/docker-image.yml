@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         id: buildx
@@ -20,15 +20,28 @@ jobs:
           docker buildx inspect default --bootstrap
         shell: bash
 
-      - name: Build and Push Docker Image
+      - name: Build Docker Image
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker buildx build \
             --platform linux/arm/v7 \
             -t homeassistant:latest \
             -f Dockerfile \
             .
+        env:
+          DOCKER_CLI_AGGREGATE: 1
+        shell: bash
+
+      - name: Login to Docker Hub
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_CLI_AGGREGATE: 1
+        shell: bash
+
+      - name: Push Docker Image
+        run: |
           docker push homeassistant:latest
         env:
           DOCKER_CLI_AGGREGATE: 1
         shell: bash
+
