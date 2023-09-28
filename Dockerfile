@@ -9,15 +9,13 @@ RUN apk add ffmpeg-dev python3-dev sqlite-dev libffi-dev libftdi1-dev bzip2-dev 
 RUN apk add git cargo build-base
 RUN mkdir /config
 
-# Download Python source
-RUN wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
-RUN tar -xzf Python-3.11.0.tgz
-RUN cd Python-3.11.0
-
-# Configure and compile Python
-RUN ./configure --enable-optimizations --with-openssl-rpath=auto
-RUN make -j 4
-RUN make install
+# Download, extract, configure, compile, and install Python 3.11
+RUN wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz && \
+    tar -xzf Python-3.11.0.tgz && \
+    cd Python-3.11.0 && \
+    ./configure --enable-optimizations --with-openssl-rpath=auto && \
+    make -j 4 && \
+    make install
 
 RUN python3 -m ensurepip --upgrade
 # RUN pip3 install --upgrade pip
@@ -30,7 +28,8 @@ RUN pip3 install Pillow
 RUN pip3 install git+https://github.com/boto/botocore
 RUN pip3 install homeassistant
 
-# Set the working directory
+
+# Set the volume directory
 VOLUME /config
 # Expose the Home Assistant port (8123)
 EXPOSE 8123
